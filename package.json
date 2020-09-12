@@ -1,0 +1,58 @@
+{
+  "name": "easyads",
+  "version": "1.0.0",
+  "description": "is an online marketplace for selling the stuff you don’t need",
+  "main": "app.js",
+  "scripts": {
+    "coveralls": "jest --coverage && cat ./coverage/lcov.info | coveralls",
+    "test": "jest --coverage",
+    "dev": "export NODE_ENV=development && nodemon --exec babel-node ./server/server.js",
+    "start": "export NODE_ENV=production && babel-node ./server/server.js",
+    "db-migrate": "npx sequelize-cli db:migrate",
+    "dropTables": "sequelize db:migrate:undo:all"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NiyongaboEric/EasyAds.git"
+  },
+  "keywords": [
+    "Category",
+    "product",
+    "user",
+    "node",
+    "git"
+  ],
+  "author": "Eric Niyongabo",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/NiyongaboEric/EasyAds/issues"
+  },
+  "homepage": "https://github.com/NiyongaboEric/EasyAds#readme",
+  "dependencies": {
+    "@babel/core": "^7.11.6",
+    "@babel/node": "^7.10.5",
+    "@babel/preset-env": "^7.11.5",
+    "@babel/runtime": "^7.11.2",
+    "babel-jest": "^26.3.0",
+    "body-parser": "^1.19.0",
+    "celebrate": "^13.0.2",
+    "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "pg": "^8.3.3",
+    "pg-hstore": "^2.3.3",
+    "sequelize": "^6.3.5",
+    "sequelize-cli": "^6.2.0",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "jest": "^26.4.2"
+  },
+  "devDependencies": {
+    "coveralls": "^3.1.0",
+    "eslint": "^7.8.1",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.0",
+    "supertest": "^4.0.2",
+    "nodemon": "^2.0.4"
+  }
+}
