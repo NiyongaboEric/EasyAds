@@ -46,4 +46,10 @@ router.post(
   ProductController.addProduct,
 );
 
+router.get(
+  '/product',
+  Authentication.authenticateUser,
+  ProductController.getProduct,
+);
+
 export default router;
