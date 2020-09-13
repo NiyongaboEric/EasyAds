@@ -19,5 +19,7 @@ export const newProductAdded = 'New added successfully';
 export const productNotFound = 'Product is not found';
 
 export const newCategoryAdded = 'New category Added successfully';
-export const allCategoryFetched = 'All category are fetched successfully';
+export const allCategoryFetched = 'All categories are fetched successfully';
 export const notFoundCategory = 'Category is not found';
+
+export const allProductFetched = 'All product are fetched successfully';
