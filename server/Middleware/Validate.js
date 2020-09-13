@@ -29,3 +29,9 @@ export const validateCategory = {
     description: Joi.string().min(5).max(20).required(),
   }),
 };
+
+export const validateProductId = {
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.string().uuid().required(),
+  }),
+};

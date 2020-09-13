@@ -5,6 +5,7 @@ import {
   validateSignup,
   validateSignin,
   validateCategory,
+  validateProductId,
 } from '../Middleware/Validate';
 import ProductController from '../Controllers/ProductController';
 import { postImageItemValidate, upload } from '../Middleware/image';
@@ -50,6 +51,13 @@ router.get(
   '/product',
   Authentication.authenticateUser,
   ProductController.getProduct,
+);
+
+router.get(
+  '/product/:id',
+  Authentication.authenticateUser,
+  celebrate(validateProductId),
+  ProductController.getSpecificProduct,
 );
 
 export default router;

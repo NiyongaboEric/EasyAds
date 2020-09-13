@@ -18,6 +18,15 @@ class ProductController {
       return err;
     }
   }
+
+  static async getSpecificProduct(req, res) {
+    try {
+      const result = await ProductService.getSpecificProduct(req, res);
+      return result;
+    } catch (err) {
+      return err;
+    }
+  }
 }
 
 export default ProductController;

@@ -2,7 +2,12 @@ import uploadImage from '../Helpers/files/upload.Image';
 import Query from './Query';
 import { Product, Category } from '../database/models';
 import Response from '../Helpers/Response';
-import { productNotFound, newProductAdded, allProductFetched } from '../constant/message';
+import {
+  productNotFound,
+  newProductAdded,
+  allProductFetched,
+  specificProductFetched,
+} from '../constant/message';
 
 class ProductService {
   static async addProduct(req, res) {
@@ -35,6 +40,17 @@ class ProductService {
   static async getProduct(req, res) {
     const allProduct = await Query.findAll(Product, {});
     Response.commonSuccess(req, res, 200, allProductFetched, allProduct);
+  }
+
+  static async getSpecificProduct(req, res) {
+    const query = {
+      where: req.params,
+    };
+    const fetchProduct = await Query.findOne(Product, query);
+    if (!fetchProduct) {
+      Response.commonError(req, res, 422, productNotFound);
+    }
+    Response.commonSuccess(req, res, 200, specificProductFetched, fetchProduct);
   }
 }
 

@@ -23,3 +23,4 @@ export const allCategoryFetched = 'All categories are fetched successfully';
 export const notFoundCategory = 'Category is not found';
 
 export const allProductFetched = 'All product are fetched successfully';
+export const specificProductFetched = 'Specific product is fetched successfully';
