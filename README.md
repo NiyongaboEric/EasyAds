@@ -21,3 +21,17 @@ The api built are deployed and available on [Heroku](https://easyadapp.herokuapp
 ### Do you have issue with dependencies?
 > heroku config:set NPM_CONFIG_PRODUCTION=true -a your-app-name
 
+
+### API Authentication
+
+If you use tools like `Postman` or `Insomnia`. The following endpoint request token and should be passed in the headers.
+
+ ```
+  `post` request
+  `/add-product` route
+```
+
+> We assume you are using Authorization `Bearer` token. Otherwise, you are not granted to access the resources.
+
+### Image Upload
+At the time of designing API, Whenever a user is going to add new product images are being uploaded on my cloudinary image cloud service hosting.
