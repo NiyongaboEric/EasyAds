@@ -1,9 +1,12 @@
 import { Router } from 'express';
 import { celebrate } from 'celebrate';
 import UserController from '../Controllers/UserController';
-import { validateSignup, validateSignin } from '../Middleware/Validate';
+import {
+  validateSignup,
+  validateSignin,
+} from '../Middleware/Validate';
 import ProductController from '../Controllers/ProductController';
-import CategoryController from '../Controllers/CategoryController';
+import { postImageItemValidate, upload } from '../Middleware/image';
 
 const router = Router();
 
@@ -17,6 +20,13 @@ router.post(
   '/signin',
   celebrate(validateSignin),
   UserController.signin,
+);
+
+router.post(
+  '/add-product',
+  upload.single('image'),
+  postImageItemValidate,
+  ProductController.addProduct,
 );
 
 export default router;
