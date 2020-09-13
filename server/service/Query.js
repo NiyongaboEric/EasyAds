@@ -8,6 +8,11 @@ class Query {
     const oneRow = await table.create(queryObject);
     return oneRow;
   }
+
+  static async update(table, queryObject) {
+    const rows = await table.update(...queryObject);
+    return rows;
+  }
 }
 
 export default Query;

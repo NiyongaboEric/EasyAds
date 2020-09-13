@@ -14,3 +14,11 @@ export const validateSignup = {
     phoneNumber: Joi.number().required(),
   }),
 };
+
+export const validateSignin = {
+  [Segments.BODY]: Joi.object().keys({
+    email: Joi.string().email().required(),
+    password: Joi.string().alphanum().min(6).max(20)
+      .required(),
+  }),
+};

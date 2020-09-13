@@ -1,6 +1,6 @@
 import UserService from '../service/UserService';
 import Response from '../Helpers/Response';
-import { registrationFailed } from '../constant/message';
+import { registrationFailed, loginFailed } from '../constant/message';
 
 class UserController {
   static async signup(req, res) {
@@ -9,6 +9,15 @@ class UserController {
       return result;
     } catch (err) {
       Response.commonError(req, res, 500, registrationFailed, err);
+    }
+  }
+
+  static async signin(req, res) {
+    try {
+      const result = await UserService.signin(req, res);
+      return result;
+    } catch (err) {
+      Response.commonError(req, res, 500, loginFailed, err);
     }
   }
 }
