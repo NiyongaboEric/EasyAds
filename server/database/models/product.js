@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    ownerId: {
+    userId: {
       type: DataTypes.STRING,
       allowNull: false,
     },

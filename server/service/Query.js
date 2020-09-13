@@ -13,6 +13,11 @@ class Query {
     const rows = await table.update(...queryObject);
     return rows;
   }
+
+  static async findAll(table, queryObject) {
+    const allRows = await table.findAll(queryObject);
+    return allRows;
+  }
 }
 
 export default Query;

@@ -4,9 +4,12 @@ import UserController from '../Controllers/UserController';
 import {
   validateSignup,
   validateSignin,
+  validateCategory,
 } from '../Middleware/Validate';
 import ProductController from '../Controllers/ProductController';
 import { postImageItemValidate, upload } from '../Middleware/image';
+import Authentication from '../Helpers/Authentication';
+import CategoryController from '../Controllers/CategoryController';
 
 const router = Router();
 
@@ -23,7 +26,21 @@ router.post(
 );
 
 router.post(
+  '/add-category',
+  Authentication.authenticateUser,
+  celebrate(validateCategory),
+  CategoryController.addCategory,
+);
+
+router.get(
+  '/category',
+  Authentication.authenticateUser,
+  CategoryController.getCategory,
+);
+
+router.post(
   '/add-product',
+  Authentication.authenticateUser,
   upload.single('image'),
   postImageItemValidate,
   ProductController.addProduct,

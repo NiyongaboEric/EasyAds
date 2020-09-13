@@ -10,7 +10,7 @@ const schemaImage = Joi.object({
   title: Joi.string().min(3).max(30).trim()
     .required(),
   price: Joi.string().required(),
-  categoryId: Joi.string().required(),
+  categoryId: Joi.string().uuid().required(),
   description: Joi.string().min(4).required(),
   status: Joi.string().min(4).max(30).trim(),
 });
