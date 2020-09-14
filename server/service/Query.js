@@ -18,6 +18,11 @@ class Query {
     const allRows = await table.findAll(queryObject);
     return allRows;
   }
+
+  static async destroy(table, queryObject) {
+    const row = await table.destroy(queryObject);
+    return row;
+  }
 }
 
 export default Query;

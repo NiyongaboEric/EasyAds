@@ -74,4 +74,11 @@ router.patch(
   ProductController.markProduct,
 );
 
+router.delete(
+  '/owner-product/:id',
+  Authentication.authenticateUser,
+  celebrate(validateProductId),
+  ProductController.deleteProduct,
+);
+
 export default router;

@@ -13,6 +13,7 @@ import {
   productMarkedSuccess,
   noActivityPerformed,
   productPriceUpdatedSuccess,
+  productDeletedSuccess,
 } from '../constant/message';
 
 class ProductService {
@@ -133,6 +134,34 @@ class ProductService {
       );
     }
     Response.commonError(req, res, 500, noActivityPerformed);
+  }
+
+  static async deleteProduct(req, res) {
+    const {
+      params: paramsInput,
+      authUser,
+    } = req;
+    const query = {
+      where: {
+        id: paramsInput.id,
+      },
+    };
+    const isProductId = await Query.findOne(Product, query);
+    if (!isProductId) {
+      Response.commonError(req, res, 400, productNotFound);
+    }
+    const isOwnerProduct = authUser.id === isProductId.dataValues.userId;
+    if (!isOwnerProduct) {
+      Response.commonError(req, res, 403, productNotBelongToOwner);
+    }
+    const deletQueryObj = {
+      where: {
+        id: isProductId.dataValues.id,
+      },
+      returning: true,
+    };
+    await Query.destroy(Product, deletQueryObj);
+    Response.commonSuccess(req, res, 200, productDeletedSuccess);
   }
 }
 
