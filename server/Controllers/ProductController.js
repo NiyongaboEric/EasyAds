@@ -45,6 +45,15 @@ class ProductController {
       return err;
     }
   }
+
+  static async deleteProduct(req, res) {
+    try {
+      const result = await ProductService.deleteProduct(req, res);
+      return result;
+    } catch (err) {
+      return err;
+    }
+  }
 }
 
 export default ProductController;
