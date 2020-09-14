@@ -44,4 +44,7 @@ export const validateMarkProduct = {
     status: Joi.string().min(4).max(30).trim()
       .valid('sold'),
   }),
+  [Segments.BODY]: Joi.object().keys({
+    price: Joi.number().integer().min(0),
+  }),
 };
