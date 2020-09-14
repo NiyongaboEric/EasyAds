@@ -12,6 +12,7 @@ import {
   productAlreadyMarked,
   productMarkedSuccess,
   noActivityPerformed,
+  productPriceUpdatedSuccess,
 } from '../constant/message';
 
 class ProductService {
@@ -72,7 +73,12 @@ class ProductService {
   }
 
   static async markProduct(req, res) {
-    const { query: queryInput, params: paramsInput, authUser } = req;
+    const {
+      query: queryInput,
+      params: paramsInput,
+      authUser,
+      body: bodyInput,
+    } = req;
     const query = {
       where: {
         id: paramsInput.id,
@@ -106,6 +112,25 @@ class ProductService {
       ];
       const updateStatus = await Query.update(Product, statusQuery);
       Response.commonSuccess(req, res, 200, productMarkedSuccess, updateStatus[1][0].dataValues);
+    }
+
+    const getPriceKey = Object.keys(bodyInput);
+    if (getPriceKey.length > 0 && getPriceKey[0] === 'price') {
+      const priceQuery = [
+        {
+          price: bodyInput.price,
+        },
+        {
+          where: {
+            id: isProductId.dataValues.id,
+          },
+          returning: true,
+        },
+      ];
+      const updateStatus = await Query.update(Product, priceQuery);
+      Response.commonSuccess(
+        req, res, 200, productPriceUpdatedSuccess, updateStatus[1][0].dataValues,
+      );
     }
     Response.commonError(req, res, 500, noActivityPerformed);
   }

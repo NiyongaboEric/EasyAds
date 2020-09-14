@@ -28,5 +28,6 @@ export const noOwnerProduct = "You don't have any product";
 export const productNotBelongToOwner = 'Product do not belong to you';
 export const productAlreadyMarked = 'Product is already marked as sold';
 export const productMarkedSuccess = 'Product is marked as sold successfully';
+export const productPriceUpdatedSuccess = 'Price of product updated successfully';
 
 export const noActivityPerformed = 'Server did not perform any Activity';
