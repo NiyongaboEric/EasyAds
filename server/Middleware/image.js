@@ -12,7 +12,8 @@ const schemaImage = Joi.object({
   price: Joi.string().required(),
   categoryId: Joi.string().uuid().required(),
   description: Joi.string().min(4).required(),
-  status: Joi.string().min(4).max(30).trim(),
+  status: Joi.string().min(4).max(30).trim()
+    .valid('sold', 'available'),
 });
 
 export const postImageItemValidate = (req, res, next) => {

@@ -7,6 +7,11 @@ import {
   newProductAdded,
   allProductFetched,
   specificProductFetched,
+  noOwnerProduct,
+  productNotBelongToOwner,
+  productAlreadyMarked,
+  productMarkedSuccess,
+  noActivityPerformed,
 } from '../constant/message';
 
 class ProductService {
@@ -51,6 +56,58 @@ class ProductService {
       Response.commonError(req, res, 422, productNotFound);
     }
     Response.commonSuccess(req, res, 200, specificProductFetched, fetchProduct);
+  }
+
+  static async getOwnersProduct(req, res) {
+    const query = {
+      where: {
+        userId: req.authUser.id,
+      },
+    };
+    const allProduct = await Query.findAll(Product, query);
+    if (allProduct.length === 0) {
+      Response.commonSuccess(req, res, 200, noOwnerProduct, allProduct);
+    }
+    Response.commonSuccess(req, res, 200, allProductFetched, allProduct);
+  }
+
+  static async markProduct(req, res) {
+    const { query: queryInput, params: paramsInput, authUser } = req;
+    const query = {
+      where: {
+        id: paramsInput.id,
+      },
+    };
+    const isProductId = await Query.findOne(Product, query);
+    if (!isProductId) {
+      Response.commonError(req, res, 400, productNotFound);
+    }
+
+    const isOwnerProduct = authUser.id === isProductId.dataValues.userId;
+    if (!isOwnerProduct) {
+      Response.commonError(req, res, 403, productNotBelongToOwner);
+    }
+
+    if (queryInput.status) {
+      const isAlreadyMarked = isProductId.dataValues.status === 'sold';
+      if (isAlreadyMarked) {
+        Response.commonSuccess(req, res, 200, productAlreadyMarked, isProductId.dataValues);
+      }
+      const statusQuery = [
+        {
+          status: queryInput.status,
+        },
+        {
+          where: {
+            id: isProductId.dataValues.id,
+          },
+          returning: true,
+        },
+      ];
+      const updateStatus = await Query.update(Product, statusQuery);
+      Response.commonSuccess(req, res, 200, productMarkedSuccess, updateStatus[1][0].dataValues);
+    }
+    Response.commonError(req, res, 500, noActivityPerformed);
   }
 }
 

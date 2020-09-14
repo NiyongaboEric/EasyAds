@@ -6,6 +6,7 @@ import {
   validateSignin,
   validateCategory,
   validateProductId,
+  validateMarkProduct,
 } from '../Middleware/Validate';
 import ProductController from '../Controllers/ProductController';
 import { postImageItemValidate, upload } from '../Middleware/image';
@@ -58,6 +59,19 @@ router.get(
   Authentication.authenticateUser,
   celebrate(validateProductId),
   ProductController.getSpecificProduct,
+);
+
+router.get(
+  '/owner-product',
+  Authentication.authenticateUser,
+  ProductController.getOwnersProduct,
+);
+
+router.patch(
+  '/owner-product/:id',
+  Authentication.authenticateUser,
+  celebrate(validateMarkProduct),
+  ProductController.markProduct,
 );
 
 export default router;

@@ -27,6 +27,24 @@ class ProductController {
       return err;
     }
   }
+
+  static async getOwnersProduct(req, res) {
+    try {
+      const result = await ProductService.getOwnersProduct(req, res);
+      return result;
+    } catch (err) {
+      return err;
+    }
+  }
+
+  static async markProduct(req, res) {
+    try {
+      const result = await ProductService.markProduct(req, res);
+      return result;
+    } catch (err) {
+      return err;
+    }
+  }
 }
 
 export default ProductController;

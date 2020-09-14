@@ -35,3 +35,13 @@ export const validateProductId = {
     id: Joi.string().uuid().required(),
   }),
 };
+
+export const validateMarkProduct = {
+  [Segments.PARAMS]: Joi.object().keys({
+    id: Joi.string().uuid().required(),
+  }),
+  [Segments.QUERY]: Joi.object().keys({
+    status: Joi.string().min(4).max(30).trim()
+      .valid('sold'),
+  }),
+};
